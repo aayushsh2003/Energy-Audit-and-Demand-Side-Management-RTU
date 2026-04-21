@@ -1,6 +1,6 @@
 {
-  "name": "EnergyMaster: Energy Audit & DSM Study App",
-  "description": "A comprehensive study application for Energy Audit and Demand Side Management, covering 9 detailed units with theory, numericals, and viva preparations.",
+  "name": "AuditDSM: 8EE6-60.1 Expert Guide",
+  "description": "Professional study interface for 8EE6-60.1: Energy Audit and Demand Side Management. Detailed analysis, audit protocols, and industrial efficiency strategies.",
   "requestFramePermissions": [],
   "majorCapabilities": []
 }

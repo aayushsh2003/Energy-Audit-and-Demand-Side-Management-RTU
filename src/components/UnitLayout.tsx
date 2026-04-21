@@ -1,6 +1,16 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { MessageSquare, AlertCircle, Calculator, ChevronRight } from 'lucide-react';
+import { 
+  SquareTerminal, 
+  Binary, 
+  ChevronRight, 
+  ChevronLeft,
+  ArrowUpRight,
+  Target,
+  Hash
+} from 'lucide-react';
+import { useNavigation } from '../context/NavigationContext';
+import { useTheme } from '../context/ThemeContext';
 
 interface SectionProps {
   title: string;
@@ -10,18 +20,19 @@ interface SectionProps {
 
 export function Section({ title, children, moduleLabel }: SectionProps) {
   return (
-    <div className="mb-12">
+    <div className="mb-20 last:mb-0">
       {moduleLabel && (
-        <div className="flex items-center gap-2 text-blue-600 text-[10px] font-bold uppercase tracking-wider mb-2">
+        <div className="flex items-center gap-3 text-app-accent font-mono text-[10px] font-bold uppercase tracking-[0.2em] mb-4">
+          <Hash size={12} />
           <span>{moduleLabel}</span>
-          <span className="text-slate-300">/</span>
-          <span className="text-slate-400 capitalize">{title.split(':')[0]}</span>
+          <div className="h-px flex-1 bg-app-border" />
         </div>
       )}
-      <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
+      <h2 className="text-2xl font-display font-bold text-app-text mb-8 tracking-tight flex items-center gap-3">
+        <span className="w-1.5 h-6 bg-app-accent rounded-full" />
         {title}
       </h2>
-      <div className="space-y-4 text-slate-600 leading-relaxed text-[15px]">
+      <div className="space-y-6 text-app-text/90 leading-relaxed text-[15px] font-normal">
         {children}
       </div>
     </div>
@@ -37,47 +48,55 @@ interface InfoBoxProps {
 
 export function InfoBox({ title, type, children, tag }: InfoBoxProps) {
   const styles = {
-    viva: { bg: 'bg-emerald-50/50', border: 'border-emerald-100', text: 'text-emerald-900', icon: MessageSquare, iconColor: 'text-emerald-600', iconBg: 'bg-emerald-50' },
-    important: { bg: 'bg-white', border: 'border-slate-200', text: 'text-slate-900', icon: AlertCircle, iconColor: 'text-blue-600', iconBg: 'bg-blue-50' },
-    numerical: { bg: 'bg-blue-50/30', border: 'border-blue-100', text: 'text-blue-900', icon: Calculator, iconColor: 'text-blue-600', iconBg: 'bg-white' },
-    example: { bg: 'bg-slate-50', border: 'border-slate-200', text: 'text-slate-900', icon: MessageSquare, iconColor: 'text-slate-500', iconBg: 'bg-white' }
+    viva: { border: 'border-emerald-500/20', bg: 'bg-emerald-500/5', color: 'text-emerald-400', icon: SquareTerminal },
+    important: { border: 'border-blue-500/20', bg: 'bg-blue-500/5', color: 'text-blue-400', icon: Binary },
+    numerical: { border: 'border-app-border', bg: 'bg-app-text/5', color: 'text-app-text', icon: Hash },
+    example: { border: 'border-app-border', bg: 'bg-app-text/2', color: 'text-app-muted', icon: Target }
   }[type];
 
   const Icon = styles.icon;
 
   return (
-    <div className={`${styles.bg} ${styles.border} border rounded-xl p-5 my-6 hover:border-blue-300 transition-colors group relative`}>
-      <div className="flex justify-between items-start mb-4">
-        <div className={`${styles.iconBg} ${styles.iconColor} w-10 h-10 rounded flex items-center justify-center`}>
-          <Icon size={20} />
-        </div>
-        {tag && (
-          <span className="text-[10px] font-bold text-slate-400 bg-slate-50 px-2 py-1 rounded ring-1 ring-slate-200/50 uppercase tracking-tight">
-            {tag}
-          </span>
-        )}
+    <div className={`p-6 my-10 border ${styles.border} ${styles.bg} rounded-xl relative overflow-hidden group`}>
+      <div className={`absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity ${styles.color}`}>
+        <Icon size={48} strokeWidth={1} />
       </div>
-      <h3 className={`font-bold ${styles.text} mb-2 flex items-center gap-2`}>
-        {title}
-      </h3>
-      <div className="text-slate-600 text-sm leading-relaxed">
-        {children}
+      
+      <div className="flex flex-col gap-4 relative z-10">
+        <div className="flex justify-between items-center">
+          {tag && (
+            <span className={`text-[9px] font-mono font-bold uppercase tracking-[0.2em] px-2 py-1 rounded border border-current ${styles.color} bg-current/5`}>
+              {tag}
+            </span>
+          )}
+          <span className="text-[9px] font-mono text-app-muted uppercase tracking-widest opacity-80">
+            Node://{type.toUpperCase()}
+          </span>
+        </div>
+        
+        <h3 className={`font-display text-lg font-bold ${styles.color}`}>
+          {title}
+        </h3>
+        
+        <div className="text-app-text/80 text-sm leading-relaxed font-normal">
+          {children}
+        </div>
       </div>
     </div>
   );
 }
 
 export function Grid({ children }: { children: React.ReactNode }) {
-  return <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">{children}</div>;
+  return <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-12">{children}</div>;
 }
 
 export function List({ items }: { items: string[] }) {
   return (
-    <ul className="space-y-3 list-none">
+    <ul className="space-y-3 py-2">
       {items.map((item, idx) => (
         <li key={idx} className="flex items-start gap-3 group">
-          <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0 group-hover:scale-125 transition-transform" />
-          <span className="text-sm text-slate-600 group-hover:text-slate-900 transition-colors">{item}</span>
+          <div className="mt-2 w-1.5 h-1.5 rounded-full bg-app-accent/60 group-hover:bg-app-accent transition-colors" />
+          <span className="text-[14px] text-app-text/80 group-hover:text-app-text transition-colors">{item}</span>
         </li>
       ))}
     </ul>
@@ -85,30 +104,82 @@ export function List({ items }: { items: string[] }) {
 }
 
 export default function UnitLayout({ title, children }: { title: string, children: React.ReactNode }) {
+  const { activeUnit, setActiveUnit, unitsCount } = useNavigation();
+  const { isDarkMode } = useTheme();
+
+  const handleNext = () => {
+    if (activeUnit && activeUnit < unitsCount) {
+      setActiveUnit(activeUnit + 1);
+      window.scrollTo(0, 0);
+    }
+  };
+
+  const handlePrev = () => {
+    if (activeUnit && activeUnit > 1) {
+      setActiveUnit(activeUnit - 1);
+      window.scrollTo(0, 0);
+    }
+  };
+
   return (
-    <div className="max-w-5xl mx-auto py-12 px-10">
-      <header className="mb-12">
-        <div className="flex items-center gap-2 text-blue-600 text-[10px] font-bold uppercase tracking-wider mb-2">
-          <span>{title.split(':')[0]}</span>
-          <span className="text-slate-300">/</span>
-          <span className="text-slate-400">Content Overview</span>
+    <div className="max-w-4xl mx-auto py-16 px-8 md:px-12 lg:px-16">
+      <header className="mb-20 pb-12 border-b border-app-border relative">
+        <div className="flex items-center gap-4 mb-6">
+          <span className="text-[10px] font-mono font-bold tracking-[0.3em] text-app-accent uppercase px-2 py-1 bg-app-accent/10 border border-app-accent/20 rounded">
+            {title.split(':')[0]}
+          </span>
+          <div className="h-px flex-1 bg-app-border/50" />
+          <span className="text-[10px] font-mono text-app-muted opacity-40">8EE6-60.1_PROTOCOL</span>
         </div>
-        <h1 className="text-4xl font-bold text-slate-900 tracking-tight mb-4">{title.split(':')[1]?.trim() || title}</h1>
-        <div className="h-1 w-20 bg-blue-600 rounded-full mb-6" />
+        <h1 className="text-4xl md:text-5xl font-display font-bold text-app-text tracking-tight mb-4">
+          {title.split(':')[1]?.trim() || title}
+        </h1>
+        <p className="text-app-muted text-sm font-mono tracking-tight opacity-60 italic">
+          [SECURE_ACCESS_GRANTED] // Technical analysis and audit documentation
+        </p>
       </header>
       
-      <div className="prose prose-slate max-w-none prose-headings:text-slate-900 prose-p:text-slate-600">
+      <div className={`prose ${isDarkMode ? 'prose-invert' : ''} max-w-none prose-headings:text-app-text font-sans selection:bg-app-accent/40`}>
         {children}
       </div>
 
-      <div className="mt-16 bg-slate-900 rounded-2xl p-8 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl shadow-slate-900/10">
-        <div>
-          <h4 className="text-sm font-bold text-blue-400 mb-1 tracking-wider uppercase">Learning Objectives</h4>
-          <p className="text-slate-400 text-sm max-w-md">By the end of this module, you will master the core professional standards and technical metrics of this unit.</p>
+      <div className="mt-32 pt-12 border-t border-app-border flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="flex flex-col gap-1 items-center md:items-start order-2 md:order-1">
+          <span className="text-[10px] font-mono font-bold text-app-muted uppercase tracking-[0.2em] opacity-50">
+            Navigation Console
+          </span>
+          <p className="text-[11px] text-app-text/40 font-mono italic">
+            {activeUnit ? `Node ${activeUnit} of ${unitsCount}` : 'System Overview'}
+          </p>
         </div>
-        <button className="px-8 py-3 bg-blue-600 hover:bg-blue-700 transition-colors rounded-lg text-sm font-bold flex items-center gap-2 whitespace-nowrap shadow-lg shadow-blue-900/40">
-          Mark as Complete <ChevronRight size={18} />
-        </button>
+
+        <div className="flex items-center gap-4 order-1 md:order-2">
+          {activeUnit && activeUnit > 1 && (
+            <button 
+              onClick={handlePrev}
+              className="group flex items-center gap-2 px-6 py-3 border border-app-border bg-app-surface text-app-text text-sm font-bold rounded-xl hover:border-app-accent/50 transition-all duration-300"
+            >
+              <ChevronLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
+              Previous Unit
+            </button>
+          )}
+          
+          {activeUnit && activeUnit < unitsCount ? (
+            <button 
+              onClick={handleNext}
+              className="group flex items-center gap-3 px-8 py-3 bg-app-accent text-app-bg text-sm font-bold rounded-xl hover:translate-x-1 transition-all duration-300 shadow-xl shadow-app-accent/20"
+            >
+              Next Unit <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
+            </button>
+          ) : activeUnit === unitsCount ? (
+            <button 
+              onClick={() => { setActiveUnit(null); window.scrollTo(0, 0); }}
+              className="group flex items-center gap-3 px-8 py-3 bg-app-surface border border-app-accent/30 text-app-accent text-sm font-bold rounded-xl hover:bg-app-accent/5 transition-all duration-300"
+            >
+              Main Terminal <Hash size={16} />
+            </button>
+          ) : null}
+        </div>
       </div>
     </div>
   );

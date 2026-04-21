@@ -1,19 +1,28 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import React, { useState } from 'react';
+import { 
+  Zap, 
+  Search, 
+  BarChart3, 
+  Lightbulb, 
+  Home, 
+  Factory, 
+  TrendingDown, 
+  ShieldCheck,
+  Scale,
+  Menu,
+  X,
+  BookOpen,
+  ArrowRight,
+  Cpu,
+  Terminal,
+  Activity,
+  Box,
+  Sun,
+  Moon
+} from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
+import { NavigationProvider } from './context/NavigationContext';
+import { ThemeProvider, useTheme } from './context/ThemeContext';
 import Sidebar from './components/Sidebar';
 import Unit1 from './components/units/Unit1';
 import Unit2 from './components/units/Unit2';
@@ -24,181 +33,207 @@ import Unit6 from './components/units/Unit6';
 import Unit7 from './components/units/Unit7';
 import Unit8 from './components/units/Unit8';
 import Unit9 from './components/units/Unit9';
-import { Menu, X, BookOpen, GraduationCap, Clock, Award, Zap } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
 
-export default function App() {
-  const [activeUnit, setActiveUnit] = useState<number>(0); // 0 for Home
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+const FeatureCard = ({ icon: Icon, title, description, delay = 0 }: any) => (
+  <motion.div 
+    initial={{ opacity: 0, y: 10 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ delay, duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
+    className="group p-8 border border-app-border hover:border-app-accent/50 transition-all duration-500 bg-app-surface relative overflow-hidden"
+  >
+    <div className="absolute top-0 right-0 p-2 opacity-5 scale-150 group-hover:opacity-10 transition-opacity">
+      <Icon size={64} strokeWidth={1} />
+    </div>
+    <div className="text-app-accent mb-6">
+      <Icon size={24} strokeWidth={2} />
+    </div>
+    <h3 className="font-display text-lg font-bold text-app-text mb-3">{title}</h3>
+    <p className="text-app-muted text-sm leading-relaxed font-normal">{description}</p>
+  </motion.div>
+);
 
-  const renderUnit = () => {
-    switch (activeUnit) {
-      case 1: return <Unit1 />;
-      case 2: return <Unit2 />;
-      case 3: return <Unit3 />;
-      case 4: return <Unit4 />;
-      case 5: return <Unit5 />;
-      case 6: return <Unit6 />;
-      case 7: return <Unit7 />;
-      case 8: return <Unit8 />;
-      case 9: return <Unit9 />;
-      default: return <HomeView onStart={() => setActiveUnit(1)} />;
-    }
+const HomeView = ({ onStart }: { onStart: () => void }) => (
+  <div className="max-w-6xl mx-auto py-24 px-10 md:px-20 overflow-hidden">
+    <header className="mb-32 relative">
+      <div className="flex items-center gap-4 text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-app-accent mb-8">
+        <Terminal size={14} />
+        <span>System Initialization // EMA_8EE6-60.1</span>
+      </div>
+      
+      <h1 className="text-6xl md:text-8xl font-display font-black text-app-text leading-[0.9] tracking-tighter mb-12">
+        Audit & <span className="text-app-accent">DSM</span>
+      </h1>
+      
+      <div className="max-w-xl">
+        <p className="text-lg md:text-xl font-normal text-app-muted leading-relaxed mb-12 border-l-2 border-app-accent/30 pl-6">
+          Official study interface for <strong>8EE6-60.1</strong>. 
+          High-precision analysis of Energy Audit protocols and industrial Demand Side Management.
+        </p>
+        
+        <div className="flex flex-wrap gap-6">
+          <button 
+            onClick={onStart}
+            className="group px-8 py-4 bg-app-accent text-app-bg font-bold rounded-xl flex items-center gap-4 hover:shadow-2xl hover:shadow-app-accent/20 transition-all duration-500"
+          >
+            Launch System <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+          </button>
+          
+          <div className="flex items-center gap-4 px-6 border border-app-border rounded-xl bg-app-surface/50 font-mono text-[10px] text-app-muted">
+            <Activity size={14} className="text-app-accent animate-pulse" />
+            <span>ALL_SYSTEMS_OPERATIONAL</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-app-border border border-app-border rounded-2xl overflow-hidden shadow-2xl">
+      <FeatureCard 
+        icon={Cpu}
+        title="Diagnostic Engine" 
+        description="Comprehensive audit methodologies mapped to industrial standards."
+        delay={0.1}
+      />
+      <FeatureCard 
+        icon={Box}
+        title="Modular Units" 
+        description="9 technical modules covering conservation, motors, and lighting grid audit."
+        delay={0.2}
+      />
+      <FeatureCard 
+        icon={TrendingDown}
+        title="Optimization Labs" 
+        description="Load management and efficiency strategies for large-scale infrastructure."
+        delay={0.3}
+      />
+    </div>
+  </div>
+);
+
+function AppContent() {
+  const [activeUnit, setActiveUnit] = useState<number | null>(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const { isDarkMode, toggleTheme } = useTheme();
+
+  const unitsCount = 9;
+
+  const units: Record<number, React.ReactNode> = {
+    1: <Unit1 />,
+    2: <Unit2 />,
+    3: <Unit3 />,
+    4: <Unit4 />,
+    5: <Unit5 />,
+    6: <Unit6 />,
+    7: <Unit7 />,
+    8: <Unit8 />,
+    9: <Unit9 />,
   };
 
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!activeUnit) return;
+      
+      if (e.key === 'ArrowRight' && activeUnit < unitsCount) {
+        setActiveUnit(activeUnit + 1);
+        window.scrollTo(0, 0);
+      } else if (e.key === 'ArrowLeft' && activeUnit > 1) {
+        setActiveUnit(activeUnit - 1);
+        window.scrollTo(0, 0);
+      } else if (e.key === 'Escape') {
+        setActiveUnit(null);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [activeUnit]);
+
   return (
-    <div className="flex flex-col h-screen bg-slate-50 text-slate-900 font-sans overflow-hidden selection:bg-blue-100 selection:text-blue-900">
-      {/* Header */}
-      <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8 shrink-0 z-50">
-        <div className="flex items-center gap-3">
-          <div 
-            className="w-8 h-8 bg-blue-600 rounded flex items-center justify-center text-white font-bold cursor-pointer"
-            onClick={() => setActiveUnit(0)}
-          >
-            E
-          </div>
-          <h1 className="text-lg font-semibold tracking-tight text-slate-800">
-            Energy Management & Audit <span className="text-slate-400 font-normal ml-2 hidden sm:inline">| Course Syllabus</span>
-          </h1>
-        </div>
-        
-        <div className="flex items-center gap-6">
-          <div className="hidden md:flex flex-col items-end">
-            <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Course Progress</span>
-            <div className="w-32 h-1.5 bg-slate-100 rounded-full mt-1">
-              <div 
-                className="h-full bg-blue-500 rounded-full transition-all duration-500" 
-                style={{ width: `${(activeUnit / 9) * 100}%` }}
-              />
+    <NavigationProvider activeUnit={activeUnit} setActiveUnit={setActiveUnit} unitsCount={unitsCount}>
+      <div className="h-screen flex flex-col font-sans bg-app-bg selection:bg-app-accent/40 selection:text-white overflow-hidden transition-colors duration-300">
+        {/* Precision Header */}
+        <header className="h-14 border-b border-app-border bg-app-surface/80 backdrop-blur-md px-6 flex items-center justify-between sticky top-0 z-50">
+          <div className="flex items-center gap-6">
+            <button 
+              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+              className="text-app-text hover:text-app-accent transition-colors p-2 -ml-2"
+            >
+              {isSidebarOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+            <div 
+              onClick={() => setActiveUnit(null)}
+              className="cursor-pointer font-display font-black text-lg tracking-tight text-app-text flex items-center gap-2"
+            >
+              <div className="w-6 h-6 bg-app-accent rounded-md flex items-center justify-center text-app-bg">
+                <Zap size={14} strokeWidth={3} />
+              </div>
+              <span>EnergyMaster</span>
             </div>
           </div>
           
-          <div className="flex items-center gap-2">
+          <div className="hidden md:flex items-center gap-8 font-mono text-[10px] font-bold tracking-[0.2em] text-app-muted">
             <button 
-              onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="p-2 hover:bg-slate-100 rounded-lg text-slate-600 transition-colors"
-              title="Toggle Syllabus"
+              onClick={toggleTheme}
+              className="flex items-center gap-2 px-3 py-1 bg-app-surface border border-app-border rounded-lg hover:border-app-accent/40 transition-colors text-app-text"
+              title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
             >
-              {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
+              {isDarkMode ? <Sun size={12} className="text-yellow-500" /> : <Moon size={12} className="text-blue-500" />}
+              <span>{isDarkMode ? "LIGHT_MODE" : "DARK_MODE"}</span>
             </button>
-            <button 
-              onClick={() => setActiveUnit(0)}
-              className="px-4 py-2 bg-slate-900 text-white text-sm font-medium rounded shadow-sm hover:bg-slate-800 transition-colors"
-            >
-              Dashboard
-            </button>
+            <span className="hover:text-app-accent transition-colors cursor-pointer border-b border-transparent hover:border-app-accent pb-1">DATABASE_8EE6-60.1</span>
+            <span className="hover:text-app-accent transition-colors cursor-pointer border-b border-transparent hover:border-app-accent pb-1">SECURE_INDEX</span>
+            <div className="flex items-center gap-2 px-3 py-1 bg-app-accent/10 border border-app-accent/20 rounded-full text-app-accent">
+              <div className="w-1.5 h-1.5 bg-app-accent rounded-full animate-pulse" />
+              <span>LIVE_STATUS</span>
+            </div>
           </div>
-        </div>
-      </header>
+        </header>
 
-      <div className="flex-1 flex overflow-hidden">
-        <Sidebar 
-          activeUnit={activeUnit} 
-          setActiveUnit={(unit) => {
-            setActiveUnit(unit);
-            if (window.innerWidth < 1024) setSidebarOpen(false);
-          }} 
-          isOpen={sidebarOpen} 
-        />
-        
-        <main className="flex-1 bg-white overflow-hidden flex flex-col relative">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeUnit}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.2 }}
-              className="flex-1 overflow-y-auto no-scrollbar"
-            >
-              <div className="w-full">
-                {renderUnit()}
+        <main className="flex-1 flex overflow-hidden relative">
+          <Sidebar 
+            activeUnit={activeUnit || 0} 
+            setActiveUnit={setActiveUnit} 
+            isOpen={isSidebarOpen} 
+          />
+          
+          <div className="flex-1 overflow-y-auto bg-app-bg custom-scrollbar overflow-x-hidden relative">
+            {/* Background Grid Pattern */}
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
+            
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeUnit || 'home'}
+                initial={{ opacity: 0, scale: 0.98 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 1.02 }}
+                transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }}
+                className="relative z-10"
+              >
+                {activeUnit ? units[activeUnit] : <HomeView onStart={() => setActiveUnit(1)} />}
+              </motion.div>
+            </AnimatePresence>
+            
+            <footer className="px-10 md:px-20 py-10 border-t border-app-border mt-20 relative z-10 bg-app-surface/50">
+              <div className="flex flex-col md:flex-row justify-between items-center gap-8 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+                <span className="text-[10px] font-mono font-bold tracking-[0.3em] uppercase text-app-text">
+                  &copy; ACADEMIC_REF_SYS_2026
+                </span>
+                <div className="flex gap-12 font-mono text-[9px] tracking-widest uppercase text-app-muted">
+                  <span>Node: EMA-6S</span>
+                  <span>Sub: DSM-PROTOCOL</span>
+                </div>
               </div>
-            </motion.div>
-          </AnimatePresence>
+            </footer>
+          </div>
         </main>
       </div>
-
-      {/* Footer */}
-      <footer className="h-10 bg-slate-50 border-t border-slate-200 flex items-center px-8 justify-between shrink-0 z-50">
-        <p className="text-[10px] text-slate-400 uppercase font-medium tracking-wide">
-          Course Code: EMA-402 • Engineering Study Guide • Academic Year 2026
-        </p>
-        <div className="flex items-center gap-4 text-[10px] text-slate-400 uppercase font-medium">
-          <span className="flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span> 
-            Live Updates
-          </span>
-          <span className="hover:text-slate-600 cursor-pointer transition-colors">Help Center</span>
-        </div>
-      </footer>
-    </div>
+    </NavigationProvider>
   );
 }
 
-function HomeView({ onStart }: { onStart: () => void }) {
+export default function App() {
   return (
-    <div className="max-w-4xl mx-auto py-20 px-10">
-      <div className="text-center mb-16">
-        <motion.div
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          className="inline-flex items-center justify-center w-16 h-16 bg-blue-600 text-white rounded-2xl shadow-xl shadow-blue-600/30 mb-8"
-        >
-          <GraduationCap size={32} />
-        </motion.div>
-        <h1 className="text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">
-          Energy Audit & Demand Side Management
-        </h1>
-        <p className="text-xl text-slate-500 max-w-2xl mx-auto leading-relaxed">
-          The complete 6th-semester study guide. Master every concept from basic energy scenarios to complex auditing methodologies.
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
-        <FeatureCard 
-          icon={<BookOpen className="text-blue-600" size={20} />}
-          title="Structured Content"
-          description="9 comprehensive units extracted from core curriculum data, organized for quick learning."
-        />
-        <FeatureCard 
-          icon={<Clock className="text-emerald-600" size={20} />}
-          title="Exam Focused"
-          description="Highlighting 'Must Know' topics, common viva questions, and essential numerical formulas."
-        />
-        <FeatureCard 
-          icon={<Award className="text-amber-600" size={20} />}
-          title="Professional Design"
-          description="Clean, technical interface inspired by modern documentation for a distraction-free experience."
-        />
-        <FeatureCard 
-          icon={<Zap className="text-blue-500" size={20} />}
-          title="Technical Accuracy"
-          description="Correct formulas and units mapped exactly as per the engineering syllabus."
-        />
-      </div>
-
-      <div className="text-center">
-        <button 
-          onClick={onStart}
-          className="px-10 py-5 bg-slate-900 text-white rounded-2xl font-bold text-lg hover:bg-slate-800 transition-all hover:scale-[1.02] active:scale-[0.98] shadow-lg"
-        >
-          Start Studying Now
-        </button>
-      </div>
-    </div>
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
   );
 }
-
-function FeatureCard({ icon, title, description }: { icon: React.ReactNode, title: string, description: string }) {
-  return (
-    <div className="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:border-blue-300 transition-all group">
-      <div className="w-10 h-10 bg-slate-50 rounded-lg flex items-center justify-center mb-6 group-hover:bg-blue-50 transition-colors">
-        {icon}
-      </div>
-      <h3 className="text-lg font-bold text-slate-800 mb-2">{title}</h3>
-      <p className="text-slate-500 text-sm leading-relaxed">{description}</p>
-    </div>
-  );
-}
-

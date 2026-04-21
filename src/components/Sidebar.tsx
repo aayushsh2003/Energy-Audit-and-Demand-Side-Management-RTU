@@ -8,7 +8,9 @@ import {
   Factory, 
   TrendingDown, 
   ShieldCheck,
-  Scale
+  Scale,
+  Cpu,
+  Activity
 } from 'lucide-react';
 import { motion } from 'motion/react';
 
@@ -35,47 +37,72 @@ export default function Sidebar({ activeUnit, setActiveUnit, isOpen }: SidebarPr
     <motion.aside 
       initial={false}
       animate={{ 
-        width: isOpen ? '288px' : '0px',
+        width: isOpen ? '280px' : '0px',
         opacity: isOpen ? 1 : 0
       }}
-      className="h-full bg-slate-100 border-r border-slate-200 flex flex-col shrink-0 overflow-hidden"
+      className="h-full bg-app-surface border-r border-app-border flex flex-col shrink-0 overflow-hidden relative z-40"
     >
-      <div className="p-4 flex-1 overflow-y-auto">
-        <h2 className="text-[11px] uppercase font-bold text-slate-500 tracking-widest mb-4 px-3">Module Directory</h2>
-        <nav className="space-y-1">
-          {units.map((unit) => {
-            const isActive = activeUnit === unit.id;
-            const unitNumber = unit.id < 10 ? `0${unit.id}` : unit.id;
-            
-            return (
-              <button
-                key={unit.id}
-                onClick={() => setActiveUnit(unit.id)}
-                className={`w-full text-left px-3 py-2.5 rounded text-sm flex items-center gap-3 transition-all ${
-                  isActive 
-                    ? 'bg-white border border-slate-200 shadow-sm text-blue-600 font-semibold' 
-                    : 'text-slate-600 hover:bg-slate-200'
-                }`}
-              >
-                <span className={`w-6 h-6 rounded flex items-center justify-center text-[10px] ${
-                  isActive ? 'bg-blue-50 text-blue-600' : 'bg-slate-200 text-slate-500'
-                }`}>
-                  {unitNumber}
-                </span>
-                <span className="truncate">Unit {unit.id}: {unit.title}</span>
-              </button>
-            );
-          })}
-        </nav>
+      <div className="p-6 flex-1 overflow-y-auto custom-scrollbar">
+        <div className="flex items-center gap-3 mb-10 px-2">
+          <div className="w-8 h-8 rounded-lg bg-app-accent flex items-center justify-center text-app-bg shadow-lg shadow-app-accent/20">
+            <Cpu size={18} strokeWidth={2.5} />
+          </div>
+          <div className="flex flex-col">
+            <span className="font-display font-bold text-sm tracking-tight leading-none mb-1">EnergyMaster</span>
+            <span className="text-[10px] font-mono text-app-muted uppercase tracking-widest bg-app-bg px-1.5 py-0.5 rounded border border-app-border leading-none"> v2.4.0</span>
+          </div>
+        </div>
+
+        <div className="space-y-6">
+          <section>
+            <h2 className="text-[10px] font-mono font-bold text-app-muted uppercase tracking-[0.2em] mb-4 px-2 flex items-center gap-2">
+              <Activity size={12} className="text-app-accent" />
+              Syllabus Core
+            </h2>
+            <nav className="space-y-1">
+              {units.map((unit) => {
+                const isActive = activeUnit === unit.id;
+                const Icon = unit.icon;
+                
+                return (
+                  <button
+                    key={unit.id}
+                    onClick={() => setActiveUnit(unit.id)}
+                    className={`w-full text-left group transition-all duration-200 px-3 py-2 rounded-lg flex items-center gap-3 relative ${
+                      isActive 
+                        ? 'bg-app-accent/10 border border-app-accent/20 text-app-accent shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)]' 
+                        : 'text-app-muted hover:bg-app-text/5 hover:text-app-text'
+                    }`}
+                  >
+                    {isActive && (
+                      <motion.div 
+                        layoutId="sidebar-active"
+                        className="absolute left-0 w-1 h-4 bg-app-accent rounded-r-full"
+                      />
+                    )}
+                    <Icon size={16} strokeWidth={isActive ? 2.5 : 2} className={isActive ? 'text-app-accent' : 'opacity-50 group-hover:opacity-100 transition-opacity'} />
+                    <div className="flex flex-col">
+                      <span className="text-[9px] font-mono opacity-50 font-bold tracking-tighter">0{unit.id}</span>
+                      <span className="text-xs font-medium tracking-tight">
+                        {unit.title}
+                      </span>
+                    </div>
+                  </button>
+                );
+              })}
+            </nav>
+          </section>
+        </div>
       </div>
       
-      <div className="mt-auto p-4 border-t border-slate-200">
-        <div className="bg-blue-600 rounded-lg p-3 text-white shadow-sm overflow-hidden relative">
-          <div className="absolute top-0 right-0 -mr-4 -mt-4 w-12 h-12 bg-blue-500/20 rounded-full blur-xl" />
-          <p className="text-[10px] font-bold uppercase opacity-80 mb-1 relative z-10">Current Focus</p>
-          <p className="text-xs leading-relaxed relative z-10 italic">
-            Professional Audit Prep & DSM Strategy Implementation
-          </p>
+      <div className="p-6 border-t border-app-border bg-app-bg/50">
+        <div className="flex items-center justify-between text-[10px] font-mono text-app-muted">
+          <span>SYSTEM_READY</span>
+          <div className="flex gap-1">
+            <div className="w-1 h-1 bg-app-accent rounded-full animate-pulse" />
+            <div className="w-1 h-1 bg-app-accent/40 rounded-full" />
+            <div className="w-1 h-1 bg-app-accent/10 rounded-full" />
+          </div>
         </div>
       </div>
     </motion.aside>
