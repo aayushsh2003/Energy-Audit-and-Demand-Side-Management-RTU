@@ -55,8 +55,26 @@ export default function Unit9() {
         </Grid>
       </Section>
 
-      <Section title="Topic 3: Conservation Planning" moduleLabel="Module 09">
-        <p>Systematic planning ensures that investments yield the highest energy returns.</p>
+      <Section title="Topic 3: Energy Management Systems (ISO 50001)" moduleLabel="Module 09">
+        <p>A structured framework like <strong>ISO 50001</strong> ensures that energy performance improves continuously through a PDCA (Plan-Do-Check-Act) cycle.</p>
+        <Grid>
+          <div className="bg-app-surface border border-app-border p-5 rounded-xl">
+             <h4 className="text-xs font-bold text-app-accent mb-3 uppercase tracking-widest">The PDCA Cycle</h4>
+             <ul className="text-[11px] space-y-2 text-app-text/70">
+                <li><span className="text-app-text font-bold">Plan:</span> Conduct energy review and establish baseline/targets.</li>
+                <li><span className="text-app-text font-bold">Do:</span> Implement energy management action plans.</li>
+                <li><span className="text-app-text font-bold">Check:</span> Monitor and measure processes against targets.</li>
+                <li><span className="text-app-text font-bold">Act:</span> Take actions to continually improve performance.</li>
+             </ul>
+          </div>
+          <InfoBox title="Energy Baseline (EnB)" type="important">
+             The <strong>Energy Baseline</strong> is a quantitative reference providing a basis for comparison of energy performance. Without a baseline, you cannot prove savings.
+          </InfoBox>
+        </Grid>
+      </Section>
+
+      <Section title="Topic 4: Systematic Conservation Planning" moduleLabel="Module 09">
+        <p>A rigorous approach ensures that capital is deployed where it yields the maximum energy return on investment.</p>
         <div className="bg-app-surface border border-app-border rounded-xl p-6 my-8 overflow-x-auto">
           <div className="flex min-w-[600px] justify-between relative">
             <div className="absolute top-4 left-0 right-0 h-[1px] bg-app-border z-0" />
@@ -82,59 +100,71 @@ export default function Unit9() {
         </InfoBox>
       </Section>
 
-      <Section title="Topic 4-9: Sector-wise Strategies" moduleLabel="Module 09">
-        <p>Specific saving opportunities across various economic sectors.</p>
+      <Section title="Topic 5-9: Global & Sector-wise Strategies" moduleLabel="Module 09">
+        <p>Technical strategies for high-impact energy reduction across the economy.</p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-8">
           {[
-            { t: "Large Industry", d: "Waste heat recovery, VFDs, and motor optimization.", i: Factory },
-            { t: "SSI (Small Scale)", d: "Low-cost methods: LED, upkeep, and worker training.", i: Store },
-            { t: "Power Grid", d: "High-voltage transmission & low-loss transformers.", i: PlugZap },
-            { t: "Residential", d: "Star-rated appliances (BEE) & natural ventilation.", i: Home },
-            { t: "Transport", d: "Public transit, E-mobility (EVs), & car pooling.", i: Bus },
-            { t: "Agriculture", d: "Pump sizing, drip irrigation, & solar pumping.", i: Wheat }
+            { t: "Large Industry", d: "Waste Heat Recovery (WHR), Combined Heat & Power (CHP), and VFD integration for all centrifugal loads.", i: Factory },
+            { t: "MSME/SSI", d: "Phase-wise replacement of old motors with IE3/IE4 classes and adoption of local solar-thermal systems.", i: Store },
+            { t: "Power Sector", d: "Reducing T&D losses using high-voltage DC (HVDC) transmission and amorphous core transformers.", i: PlugZap },
+            { t: "Building Sector", d: "Adopting ECBC-compliant envelopes, VRF air conditioning, and BMS (Building Management Systems).", i: Home },
+            { t: "Transport", d: "Friction reduction, regenerative braking in rail, and switching to high-energy-density EV batteries.", i: Bus },
+            { t: "Agriculture", d: "Standardizing foot valves, using PVC pipes instead of high-friction GI, and solar-synchronous pumping.", i: Wheat }
           ].map((item, idx) => (
             <div key={idx} className="p-4 bg-app-surface border border-app-border rounded-xl group hover:border-app-accent transition-colors">
               <item.i className="text-app-accent mb-2 opacity-50" size={20} />
               <h5 className="font-bold text-xs text-app-text mb-1">{item.t}</h5>
-              <p className="text-[10px] text-app-muted">{item.d}</p>
+              <p className="text-[10px] text-app-muted leading-relaxed">{item.d}</p>
             </div>
           ))}
         </div>
       </Section>
 
-      <Section title="Topic 10: Legislation - EC Act 2001" moduleLabel="Module 09">
+      <Section title="Topic 10: Legislation - The EC Act 2001 Detail" moduleLabel="Module 09">
         <div className="bg-app-accent/5 border border-app-accent/20 rounded-2xl p-8 relative overflow-hidden group">
           <div className="absolute top-0 right-0 p-6 text-app-accent/10 -rotate-12">
             <Scale size={120} />
           </div>
           
-          <h3 className="text-xl font-display font-bold text-app-text mb-4">Energy Conservation Act, 2001</h3>
+          <h3 className="text-xl font-display font-bold text-app-text mb-4">India's Legislative Powerhouse</h3>
           <p className="text-sm text-app-text/70 mb-6 max-w-2xl">
-            The foundation of India's energy efficiency framework. It established the <strong>Bureau of Energy Efficiency (BEE)</strong> to drive national standards.
+            The <strong>Energy Conservation Act, 2001</strong> enables the Central Government to specify energy consumption standards for equipment and appliances.
           </p>
 
           <Grid>
             <div className="bg-app-bg/50 p-4 border border-app-border rounded-xl">
               <h4 className="text-[10px] font-mono font-bold text-app-accent uppercase mb-3 flex items-center gap-2">
-                <Award size={12} /> Key Mechanisms
+                <Target size={12} /> The PAT Scheme
               </h4>
-              <ul className="text-[11px] space-y-2 text-app-muted">
-                <li>• <span className="text-app-text font-bold">Star Labeling:</span> Mandatory for high-usage appliances.</li>
-                <li>• <span className="text-app-text font-bold">ECBC:</span> Rules for energy-efficient commercial buildings.</li>
-                <li>• <span className="text-app-text font-bold">PAT Scheme:</span> Perform, Achieve, and Trade for Industries.</li>
+              <p className="text-[10px] text-app-muted mb-3 italic">"Perform, Achieve & Trade"</p>
+              <ul className="text-[10.5px] space-y-2 text-app-muted">
+                <li>• <span className="text-app-text font-bold">SEC Targets:</span> Specific Energy Consumption targets given to 'Designated Consumers'.</li>
+                <li>• <span className="text-app-text font-bold">ESCerts:</span> Over-achievers get tradeable certificates.</li>
+                <li>• <span className="text-app-text font-bold">Market Mechanism:</span> Under-achievers must buy ESCerts to comply.</li>
               </ul>
             </div>
             <div className="bg-app-bg/50 p-4 border border-app-border rounded-xl">
               <h4 className="text-[10px] font-mono font-bold text-app-accent uppercase mb-3 flex items-center gap-2">
-                <ShieldCheck size={12} /> Compliance
+                <ShieldCheck size={12} /> Institutional Roles
               </h4>
-              <ul className="text-[11px] space-y-2 text-app-muted">
-                <li>• <span className="text-app-text font-bold">Designated Consumers:</span> Sectors mandated for regular audits.</li>
-                <li>• <span className="text-app-text font-bold">Energy Auditors:</span> Certified professionals required by law.</li>
-                <li>• <span className="text-app-text font-bold">Penalties:</span> Financial consequences for non-compliance.</li>
+              <ul className="text-[10.5px] space-y-2 text-app-muted">
+                <li>• <span className="text-app-text font-bold">Energy Manager:</span> In-house professional responsible for daily optimization.</li>
+                <li>• <span className="text-app-text font-bold">Energy Auditor:</span> External professional for certified mandatory audits.</li>
+                <li>• <span className="text-app-text font-bold">SDA:</span> State Designated Agencies monitor state-level compliance.</li>
               </ul>
             </div>
           </Grid>
+        </div>
+
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+           <div className="p-5 border border-app-border bg-app-surface rounded-xl">
+              <h4 className="text-xs font-bold text-app-text mb-2">S&L (Standards & Labelling)</h4>
+              <p className="text-[11px] text-app-muted">Mandatory and Voluntary star labeling for 28+ appliances ranging from ACs to Chillers and Pump sets. Prevents the dumping of obsolete technology.</p>
+           </div>
+           <div className="p-5 border border-app-border bg-app-surface rounded-xl">
+              <h4 className="text-xs font-bold text-app-text mb-2">ECBC Implementation</h4>
+              <p className="text-[11px] text-app-muted">Mandates thermal standards for any commercial building with {` > `} 100kW connected load or {` > `} 500kVA contract demand.</p>
+           </div>
         </div>
       </Section>
 

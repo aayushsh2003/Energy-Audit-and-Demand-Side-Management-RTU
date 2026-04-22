@@ -108,6 +108,33 @@ export default function Unit1() {
           </InfoBox>
         </Grid>
 
+        <h3 className="text-xl font-bold text-app-text mb-4">Detailed Methodology (The Ten Steps)</h3>
+        <p className="text-sm text-app-muted mb-4 uppercase tracking-[0.1em] font-mono">Standard procedure for a Detailed Energy Audit:</p>
+        <div className="space-y-3 mb-10">
+          {[
+            { phase: "Pre-Audit Phase", step: "1. Scope of Audit & Instrument setup" },
+            { phase: "Audit Phase (Data Collection)", step: "2. Historical data analysis (Past 1-2 years bills)" },
+            { phase: "Audit Phase (Field Study)", step: "3. Walk-through inspection & Safety check" },
+            { phase: "Audit Phase (Measurement)", step: "4. Measurement of Voltage, Current, Lux, Temp" },
+            { phase: "Audit Phase (Mass Balance)", step: "5. Energy & Material balance calculation" },
+            { phase: "Audit Phase (Identification)", step: "6. Identification of Energy Saving Measures (ESMs)" },
+            { phase: "Audit Phase (Analysis)", step: "7. Financial analysis (Payback period calculation)" },
+            { phase: "Audit Phase (Reporting)", step: "8. Preparation of Audit Report & Recommendations" },
+            { phase: "Post-Audit Phase", step: "9. Implementation of recommended ESMs" },
+            { phase: "Post-Audit Phase", step: "10. Monitoring and periodic review" }
+          ].map((s, i) => (
+            <div key={i} className="flex items-center gap-4 p-3 bg-app-surface border border-app-border rounded-lg hover:border-app-accent/30 transition-colors">
+              <span className="w-8 h-8 rounded-full bg-app-accent/10 flex items-center justify-center text-app-accent font-mono text-xs font-bold border border-app-accent/20">
+                {i+1}
+              </span>
+              <div>
+                <p className="text-[10px] font-mono font-bold text-app-muted uppercase tracking-tighter opacity-50">{s.phase}</p>
+                <p className="text-sm font-medium text-app-text">{s.step}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
         <h3 className="text-xl font-bold text-app-text mb-4">Types of Energy Audit</h3>
         <Grid>
           <div className="bg-app-surface border border-app-border rounded-xl p-5 shadow-sm">
@@ -131,35 +158,62 @@ export default function Unit1() {
             ]} />
           </div>
         </Grid>
+      </Section>
 
-        <InfoBox title="Energy Audit Instruments" type="important" tag="Instrumentation">
-          <div className="grid grid-cols-2 gap-2 text-xs">
-            <div className="font-bold border-b pb-1">Instrument</div>
-            <div className="font-bold border-b pb-1">Purpose</div>
-            <div>Clamp meter</div><div>Measure current flow</div>
-            <div>Power analyzer</div><div>Measure power & PF</div>
-            <div>Lux meter</div><div>Check lighting levels</div>
-            <div>Flue gas analyzer</div><div>Check Boiler efficiency</div>
+      <Section title="Topic 3: Bureau of Energy Efficiency (BEE)" moduleLabel="Module 01">
+        <p>BEE is a statutory body under the Ministry of Power, Govt. of India, established under the <strong>Energy Conservation Act, 2001</strong>.</p>
+        
+        <InfoBox title="BEE Role & Programs" type="important" tag="Governance">
+          <p className="mb-4 text-sm leading-relaxed">The BEE's mission is to develop policies and strategies with a focus on self-regulation and market principles.</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="bg-app-bg/50 p-4 rounded-lg border border-app-border">
+              <p className="text-app-accent font-bold text-xs uppercase mb-2">S&L Program</p>
+              <p className="text-[11px] text-app-text/70">Standards & Labeling: The familiar "Star Labels" on ACs, Fridges, and Fans.</p>
+            </div>
+            <div className="bg-app-bg/50 p-4 rounded-lg border border-app-border">
+              <p className="text-app-accent font-bold text-xs uppercase mb-2">ECBC</p>
+              <p className="text-[11px] text-app-text/70">Energy Conservation Building Code: Minimum energy requirements for new commercial buildings.</p>
+            </div>
+            <div className="bg-app-bg/50 p-4 rounded-lg border border-app-border">
+              <p className="text-app-accent font-bold text-xs uppercase mb-2">PAT Scheme</p>
+              <p className="text-[11px] text-app-text/70">Perform, Achieve and Trade: Targeted for high-usage industries (Designated Consumers).</p>
+            </div>
+            <div className="bg-app-bg/50 p-4 rounded-lg border border-app-border">
+              <p className="text-app-accent font-bold text-xs uppercase mb-2">Certified Auditors</p>
+              <p className="text-[11px] text-app-text/70">BEE conducts National Certification Exams for Energy Auditors and Managers.</p>
+            </div>
           </div>
-        </InfoBox>
-
-        <InfoBox title="Viva Answer (Memorize This)" type="viva" tag="Viva Answer">
-          Energy audit is a systematic examination of energy use in a facility to identify energy losses and recommend measures to improve efficiency and reduce energy consumption. It helps in cost saving, energy conservation, and environmental protection.
         </InfoBox>
       </Section>
 
-      <Section title="Topic 3: Energy Scenario" moduleLabel="Module 01">
+      <Section title="Topic 4: Energy Scenario & Intensity" moduleLabel="Module 01">
         <p>
-          Energy Scenario is the overall condition of energy production, availability, consumption, and future demand in a country or the world.
+          Energy Scenario is the overall condition of energy production, availability, consumption, and future demand.
         </p>
 
-        <InfoBox title="World vs India" type="important" tag="Analysis">
-          <p className="mb-2 uppercase text-[10px] font-bold text-slate-400">World Reality</p>
-          <p className="mb-4">Most energy comes from limited Fossil Fuels (Coal, Oil, Gas). The world is shifting to Solar, Wind, and Hydro to fight Global Warming.</p>
-          
-          <p className="mb-2 uppercase text-[10px] font-bold text-slate-400">India's Reality</p>
-          <p>As a <strong>developing country</strong>, our demand is increasing rapidly due to population growth, urbanization, and digitalization (e.g., every house now has multiple chargers/ACs).</p>
+        <InfoBox title="Energy Intensity (EXAM CRITICAL)" type="important" tag="Metric">
+          <strong>Energy Intensity = Energy Consumption ÷ Gross Domestic Product (GDP)</strong><br />
+          It indicates how "efficiently" a country produces money relative to its energy use. 
+          <p className="mt-2 text-xs text-app-text/60 italic">Note: High Intensity means the economy is inefficient or heavily industrial. Low Intensity means the economy is efficient or service-based (like IT).</p>
         </InfoBox>
+
+        <Grid>
+          <InfoBox title="World vs India" type="important" tag="Analysis">
+            <p className="mb-2 uppercase text-[10px] font-bold text-slate-400">World Reality</p>
+            <p className="mb-4">Most energy comes from limited Fossil Fuels (Coal, Oil, Gas). The world is shifting to Solar, Wind, and Hydro to fight Global Warming.</p>
+            
+            <p className="mb-2 uppercase text-[10px] font-bold text-slate-400">India's Reality</p>
+            <p>As a <strong>developing country</strong>, our demand is increasing rapidly. India is now the 3rd largest energy consumer in the world.</p>
+          </InfoBox>
+          <InfoBox title="Per Capita Consumption (Comparison)" type="numerical" tag="Exam Data">
+            <div className="space-y-2 text-xs">
+              <div className="flex justify-between border-b border-app-border pb-1"><span>USA (Avg)</span> <span>~12,000 kWh</span></div>
+              <div className="flex justify-between border-b border-app-border pb-1"><span>World Avg</span> <span>~3,000 kWh</span></div>
+              <div className="flex justify-between border-b border-app-border pb-1 text-app-accent font-bold"><span>India</span> <span>~1,200 kWh</span></div>
+              <p className="text-[10px] text-app-muted mt-2">India's per capita is low, but growing at ~5-6% annually.</p>
+            </div>
+          </InfoBox>
+        </Grid>
 
         <h3 className="text-lg font-bold text-app-text mb-4">India's Major Energy Sources</h3>
         <ul className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-8">
@@ -175,35 +229,38 @@ export default function Unit1() {
         </InfoBox>
       </Section>
 
-      <Section title="Topic 4: Energy Consumption" moduleLabel="Module 01">
-        <InfoBox title="What is Per Capita Consumption?" type="numerical" tag="Exam Special">
-          <strong>Per Capita Consumption = Total energy consumption ÷ Population</strong><br />
-          India's total consumption is high (due to size), but per capita is still low compared to the USA/Japan.
+      <Section title="Topic 5: Energy Consumption Patterns" moduleLabel="Module 01">
+        <InfoBox title="Energy Consumption vs GDP" type="important" tag="Analysis">
+          Economic growth (GDP) is directly linked to energy consumption. As India aims to become a 5 Trillion dollar economy, energy demand will double.
         </InfoBox>
 
-        <h3 className="text-lg font-bold text-app-text mb-4">Where is Energy Used?</h3>
-        <Grid>
-          <div className="bg-app-surface p-4 rounded-xl border border-app-border flex flex-col gap-2">
-            <span className="text-app-accent font-bold text-sm">A) Domestic</span>
-            <span className="text-xs text-app-muted">Fans, Lights, AC, Geysers at home.</span>
-          </div>
-          <div className="bg-app-surface p-4 rounded-xl border border-app-border flex flex-col gap-2">
-            <span className="text-app-accent font-bold text-sm">B) Industrial</span>
-            <span className="text-xs text-app-muted">Motors, Boilers, Furnaces (Uses maximum energy).</span>
-          </div>
-          <div className="bg-app-surface p-4 rounded-xl border border-app-border flex flex-col gap-2">
-            <span className="text-app-accent font-bold text-sm">C) Commercial</span>
-            <span className="text-xs text-app-muted">Malls, Hospitals, Hotels (High AC/Lighting demand).</span>
-          </div>
-          <div className="bg-app-surface p-4 rounded-xl border border-app-border flex flex-col gap-2">
-            <span className="text-app-accent font-bold text-sm">D) Transportation</span>
-            <span className="text-xs text-app-muted">Fuel used in cars, buses, trains, planes.</span>
-          </div>
-        </Grid>
+        <h3 className="text-lg font-bold text-app-text mb-4">India's Sector-wise Energy Use (Approx.)</h3>
+        <div className="space-y-4 my-6">
+          {[
+            { sector: "Industry", percentage: "45%", details: "Heavy machines, foundries, cement/steel plants." },
+            { sector: "Residential", percentage: "25%", details: "Lighting, Fans, ACs, Charging devices." },
+            { sector: "Agriculture", percentage: "18%", details: "Pumping sets, irrigation systems." },
+            { sector: "Commercial", percentage: "12%", details: "Shopping malls, IT parks, Hospitals." }
+          ].map((s, i) => (
+            <div key={i} className="group relative">
+              <div className="flex justify-between items-end mb-1">
+                <span className="text-sm font-bold text-app-text">{s.sector}</span>
+                <span className="text-app-accent font-mono text-xs">{s.percentage}</span>
+              </div>
+              <div className="h-1.5 w-full bg-app-border rounded-full overflow-hidden">
+                <div 
+                  className="h-full bg-app-accent group-hover:brightness-125 transition-all duration-500" 
+                  style={{ width: s.percentage }}
+                />
+              </div>
+              <p className="text-[10px] text-app-muted mt-1 opacity-60">{s.details}</p>
+            </div>
+          ))}
+        </div>
       </Section>
 
-      <Section title="Topic 5: Energy Security" moduleLabel="Module 01">
-        <p><strong>Energy Security</strong> = Continuous availability of sufficient energy at an affordable price without interruption (No power cuts, no sudden price rises).</p>
+      <Section title="Topic 6: Energy Security" moduleLabel="Module 01">
+        <p><strong>Energy Security</strong> = Continuous availability of sufficient energy at an affordable price without interruption.</p>
         
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 my-8">
           {[
@@ -220,41 +277,112 @@ export default function Unit1() {
           ))}
         </div>
 
-        <InfoBox title="Renewable Energy = Strong Security" type="important" tag="Strategy">
-          Using Solar and Wind leads to local production and reduces dependency on costly foreign oil imports.
+        <InfoBox title="Two Levels of Security" type="viva" tag="Core Logic">
+          1. <strong>Energy Independence:</strong> Reducing dependency on foreign oil/gas.<br />
+          2. <strong>Supply Reliability:</strong> Avoiding grid failures and blackouts.
         </InfoBox>
       </Section>
 
-      <Section title="Topic 6: Energy Strategy" moduleLabel="Module 01">
+      <Section title="Topic 7: Energy Strategy" moduleLabel="Module 01">
         <p>A long-term govt plan (10–30 years) to meet future energy needs efficiently.</p>
         <Grid>
           <InfoBox title="India's Approach" type="important" tag="Policy">
             1. Build more power plants & solar parks.<br />
-            2. Promote Star-rated appliances.<br />
-            3. Smart Grids & Electric Vehicles.<br />
+            2. Promote Star-rated appliances (BEE).<br />
+            3. Smart Grids & Electric Vehicles (FAME scheme).<br />
             4. Diversify fuel sources (Nuclear, Hydro).
           </InfoBox>
-          <InfoBox title="The Core Mantra" type="viva" tag="Mantra">
-            <strong>"Energy saved = Energy generated"</strong><br />
-            Saving 1 unit at home is better than generating 1.2 units at the plant (due to losses).
+          <InfoBox title="Energy saved = Energy generated" type="viva" tag="Mantra">
+            Saving 1 unit at home is better than generating 1.2 units at the plant. 
+            <p className="mt-2 text-xs italic opacity-60">Wait, why? Because transmission and distribution (T&D) losses are avoided when you save energy locally.</p>
           </InfoBox>
         </Grid>
       </Section>
 
-      <Section title="Topic 7: Clean Development Mechanism (CDM)" moduleLabel="Module 01">
-        <p>International system where <strong>developed countries</strong> fund clean energy projects in <strong>developing countries</strong> to earn credits.</p>
+      <Section title="Topic 8: Clean Development Mechanism (CDM)" moduleLabel="Module 01">
+        <p>Originating from the <strong>Kyoto Protocol (1997)</strong>, CDM allows developed countries to invest in green projects in developing countries.</p>
         
         <InfoBox title="What is a Carbon Credit?" type="numerical" tag="Exam Fact">
-          <strong>1 Carbon Credit = Reduction of 1 ton of CO₂ emission.</strong><br />
-          These credits can be sold in international markets, making green projects profitable.
+          <strong>1 CER (Certified Emission Reduction) = 1 ton of CO₂ avoided.</strong><br />
+          These credits are tradeable. For example, a village installing biogas can sell its "saved carbon" to an industry in Europe.
         </InfoBox>
 
-        <List items={[
-          "Brings New Technology to India",
-          "Encourages Foreign Investment",
-          "Reduces Global Warming impacts",
-          "Helps India install Wind and Solar farms cheaply"
-        ]} />
+        <Grid>
+          <div className="bg-app-surface border border-app-border p-4 rounded-xl">
+             <h4 className="text-xs font-bold text-app-accent uppercase mb-3">Benefits to India</h4>
+             <List items={[
+              "New clean technologies flow into India",
+              "Helps fund solar and wind farms",
+              "Creates 'Green Jobs' in villages",
+              "Reduces local pollution levels"
+            ]} />
+          </div>
+          <div className="bg-app-surface border border-app-border p-4 rounded-xl">
+             <h4 className="text-xs font-bold text-app-accent uppercase mb-3">Global Impact</h4>
+             <List items={[
+              "Fight against Global Warming",
+              "Reduces total Earth greenhouse gases",
+              "Promotes sustainable development",
+              "Cost-effective emission reduction"
+            ]} />
+          </div>
+        </Grid>
+      </Section>
+
+      <Section title="Topic 9: Energy Management & Role of Manager" moduleLabel="Module 01">
+        <p><strong>Energy Management</strong> is the proactive, organized and systematic coordination of procurement, conversion, and use of energy.</p>
+        
+        <div className="bg-app-accent/5 border border-app-accent/20 rounded-xl p-6 my-8">
+          <h4 className="text-app-accent font-bold mb-4">Role of an Energy Manager (VIVA FAVORITE)</h4>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+            <div className="space-y-4">
+              <div>
+                <p className="font-bold text-app-text mb-1">1. Policy Maker</p>
+                <p className="text-app-text/60 text-xs">Prepares energy policies for the company.</p>
+              </div>
+              <div>
+                <p className="font-bold text-app-text mb-1">2. Data Analyst</p>
+                <p className="text-app-text/60 text-xs">Analyzes monthly energy consumption reports.</p>
+              </div>
+            </div>
+            <div className="space-y-4">
+              <div>
+                <p className="font-bold text-app-text mb-1">3. Project Coordinator</p>
+                <p className="text-app-text/60 text-xs">Manages implementation of audit suggestions.</p>
+              </div>
+              <div>
+                <p className="font-bold text-app-text mb-1">4. Awareness Leader</p>
+                <p className="text-app-text/60 text-xs">Trains staff and workers to save electricity.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <InfoBox title="Energy Audit vs Energy Management" type="important" tag="Contrast">
+          <strong>Audit:</strong> Identifying where energy is wasted (The Inspection).<br />
+          <strong>Management:</strong> Continuously maintaining efficiency (The Process).
+        </InfoBox>
+      </Section>
+
+      <Section title="Topic 10: ISO 50001 (Energy Management System)" moduleLabel="Module 01">
+        <p>ISO 50001 is the international standard for <strong>Energy Management Systems (EnMS)</strong>. It provides a framework for organizations to manage and improve their energy performance.</p>
+        
+        <InfoBox title="The PDCA Cycle" type="important" tag="Exam Concept">
+          ISO 50001 follows the <strong>Plan-Do-Check-Act</strong> cycle:
+          <ul className="mt-2 space-y-1 text-xs">
+            <li><strong>Plan:</strong> Conduct energy review and set baselines.</li>
+            <li><strong>Do:</strong> Implement energy management action plans.</li>
+            <li><strong>Check:</strong> Monitor and measure processes.</li>
+            <li><strong>Act:</strong> Take actions to continually improve energy performance.</li>
+          </ul>
+        </InfoBox>
+        
+        <div className="bg-app-surface border border-app-border p-5 rounded-2xl">
+           <h4 className="text-app-accent font-bold text-sm mb-2">Why industries take ISO 50001?</h4>
+           <p className="text-xs text-app-text/70 leading-relaxed">
+             It is not just for saving energy; it is a global certificate. Companies with this certificate are trusted by international clients as they prove they are "Green" and "Efficient".
+           </p>
+        </div>
       </Section>
     </UnitLayout>
   );

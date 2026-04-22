@@ -12,150 +12,181 @@ import {
   Compass,
   Thermometer,
   Settings,
-  ArrowUpRight
+  ArrowUpRight,
+  Layers
 } from 'lucide-react';
 import UnitLayout, { Section, InfoBox, List, Grid } from '../UnitLayout';
 
 export default function Unit7() {
   return (
     <UnitLayout title="Unit 7: Buildings & Water Audit">
-      <Section title="Topic 1: Energy Saving in New Buildings" moduleLabel="Module 07">
+      <Section title="Topic 1: Energy Benchmarking & ECBC" moduleLabel="Module 07">
         <p>
-          "Energy Efficient Building Design" focuses on minimizing consumption from the <strong>design phase</strong>. 
-          Modifying a building after construction is significantly more expensive and less effective.
+          Energy efficiency in buildings starts with standards. The <strong>ECBC (Energy Conservation Building Code)</strong> by BEE defines the minimum efficiency requirements for commercial buildings.
         </p>
+        <Grid>
+           <InfoBox title="EPI - Energy Performance Index" type="numerical" tag="Primary Metric">
+             <div className="text-center font-mono py-2 text-app-accent text-lg">
+               EPI = Annual Energy Use (kWh) / Built Area (m²)
+             </div>
+             <p className="text-xs text-app-muted italic">Lower EPI = More Efficient Building.</p>
+           </InfoBox>
+           <div className="bg-app-surface border border-app-border p-5 rounded-xl">
+             <h4 className="text-xs font-bold text-app-text mb-2 uppercase">ECBC Compliance Tiers</h4>
+             <List items={[
+               "ECBC: Basic compliance (~25% more efficient)",
+               "ECBC+: Premium efficiency (~35% more efficient)",
+               "Super ECBC: Net Zero ready (~50% more efficient)"
+             ]} />
+           </div>
+        </Grid>
+      </Section>
+
+      <Section title="Topic 2: Building Envelope & U-Values" moduleLabel="Module 07">
+        <p>The "Shell" of the building controls 60-70% of the cooling load. In audits, we measure the <strong>Heat Transfer Coefficient (U-value)</strong>.</p>
+        
+        <div className="bg-app-surface border border-app-border rounded-xl p-8 my-8">
+           <h4 className="text-app-accent font-mono text-[10px] uppercase mb-4 tracking-widest">Heat Transfer Physics</h4>
+           <div className="flex flex-col md:flex-row gap-6">
+              <div className="flex-1 p-4 bg-app-bg border border-app-border rounded-lg">
+                 <h5 className="font-bold text-xs text-app-text mb-2">Conduction (Walls/Roof)</h5>
+                 <p className="text-xs font-mono text-app-accent">Q = U × A × ΔT</p>
+                 <p className="text-[10px] text-app-muted mt-2">Where Q is heat flux, A is area, and ΔT is temp difference. Goal: MINIMIZE 'U'.</p>
+              </div>
+              <div className="flex-1 p-4 bg-app-bg border border-app-border rounded-lg">
+                 <h5 className="font-bold text-xs text-app-text mb-2">Radiation (Fenestration)</h5>
+                 <p className="text-[10px] text-app-muted leading-relaxed">Through glass. Controlled by <strong>SHGC (Solar Heat Gain Coefficient)</strong>. Double glazing reduces this significantly.</p>
+              </div>
+           </div>
+        </div>
 
         <Grid>
-          <div className="bg-app-surface border border-app-border p-5 rounded-xl group hover:border-app-accent transition-all">
-            <Compass className="text-app-accent mb-3 opacity-60 group-hover:opacity-100" size={20} />
-            <h4 className="font-bold text-sm text-app-text mb-1">1. Orientation</h4>
-            <p className="text-xs text-app-muted leading-relaxed">Aligning building axis to minimize direct solar heat gain while maximizing natural daylight (e.g., North-facing windows).</p>
+           <div className="bg-app-surface border border-app-border p-5 rounded-xl">
+             <h4 className="text-app-text font-bold text-xs mb-3">Thermal Mass</h4>
+             <p className="text-[11px] text-app-muted leading-relaxed">Materials like concrete/brick act as thermal batteries, absorbing heat during day and releasing it at night, flattening the AC demand curve.</p>
+           </div>
+           <InfoBox title="U-Value Comparison" type="example" tag="Audit Tip">
+             Single Glass: ~5.8 W/m²K<br />
+             Double Glazed: ~2.8 W/m²K<br />
+             <strong>Lower is Better</strong> for insulation.
+           </InfoBox>
+        </Grid>
+      </Section>
+
+      <Section title="Topic 3: Cooling Load Factors" moduleLabel="Module 07">
+        <p>The AC system size (Tonnage) is determined by summing all heat sources.</p>
+        <Grid>
+          <div className="bg-app-surface/50 border border-app-border p-5 rounded-xl">
+             <h4 className="text-xs font-bold text-app-accent mb-3 uppercase font-mono tracking-tighter">Sensible Heat</h4>
+             <ul className="text-[10px] space-y-2 text-app-text/70">
+                <li>• Transmission through walls/roof.</li>
+                <li>• Heat from lighting and computers.</li>
+                <li>• Sunlight through windows.</li>
+                <li>• Occupant body heat (Sensible aspect).</li>
+             </ul>
           </div>
-          <div className="bg-app-surface border border-app-border p-5 rounded-xl group hover:border-app-accent transition-all">
-            <Sun className="text-app-accent mb-3 opacity-60 group-hover:opacity-100" size={20} />
-            <h4 className="font-bold text-sm text-app-text mb-1">2. Daylighting</h4>
-            <p className="text-xs text-app-muted leading-relaxed">Using skylights and large high-efficiency windows to reduce reliance on artificial lighting during the day.</p>
-          </div>
-          <div className="bg-app-surface border border-app-border p-5 rounded-xl group hover:border-app-accent transition-all">
-            <Wind className="text-app-accent mb-3 opacity-60 group-hover:opacity-100" size={20} />
-            <h4 className="font-bold text-sm text-app-text mb-1">3. Passive Ventilation</h4>
-            <p className="text-xs text-app-muted leading-relaxed">Designing for cross-ventilation and 'stack effect' to cool the building naturally without heavy AC usage.</p>
+          <div className="bg-app-surface/50 border border-app-border p-5 rounded-xl">
+             <h4 className="text-xs font-bold text-app-accent mb-3 uppercase font-mono tracking-tighter">Latent Heat (Moisture)</h4>
+             <ul className="text-[10px] space-y-2 text-app-text/70">
+                <li>• Infiltration of humid air.</li>
+                <li>• Moisture from human breathing/sweat.</li>
+                <li>• Dampness in materials/walls.</li>
+                <li>• High Latent load = More energy for Dehumidification.</li>
+             </ul>
           </div>
         </Grid>
+      </Section>
 
-        <div className="bg-app-surface border border-app-border p-6 rounded-xl mt-6 relative overflow-hidden">
-          <div className="absolute top-0 right-0 p-4 opacity-5"><ShieldCheck size={64} /></div>
-          <h4 className="text-app-accent font-bold mb-4 flex items-center gap-2">
-            <ShieldCheck size={18} /> Thermal Insulation & Envelope
-          </h4>
-          <p className="text-sm text-app-text/70 mb-4">
-            Insulating roofs and walls prevents heat entry in summer and preserves warmth in winter. 
-            This drastically reduces the <strong>Cooling Load (Tonnage)</strong> required for HVAC systems.
-          </p>
-          <List items={[
-            "Double-glazed or low-e glass windows.",
-            "Reflective roof coatings (Cool Roofs).",
-            "Cavity wall insulation for minimal heat transfer."
-          ]} />
+      <Section title="Topic 4: Orientation & Shading" moduleLabel="Module 07">
+        <p>Strategic placement provides "Free Cooling" and "Free Lighting".</p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
+           <div className="p-5 border border-app-border bg-app-surface rounded-xl">
+              <Compass className="text-app-accent mb-2" size={18} />
+              <h4 className="font-bold text-xs mb-1">Building Axis</h4>
+              <p className="text-[10px] text-app-muted">North-South orientation is ideal in tropics to minimize harsh East/West solar gains.</p>
+           </div>
+           <div className="p-5 border border-app-border bg-app-surface rounded-xl">
+              <Sun className="text-app-accent mb-2" size={18} />
+              <h4 className="font-bold text-xs mb-1">External Shading</h4>
+              <p className="text-[10px] text-app-muted">Chajjas, overhangs, and vertical fins block heat before it hits the glass.</p>
+           </div>
+           <div className="p-5 border border-app-border bg-app-surface rounded-xl">
+              <Layers className="text-app-accent mb-2" size={18} />
+              <h4 className="font-bold text-xs mb-1">WWR %</h4>
+              <p className="text-[10px] text-app-muted"><strong>Window to Wall Ratio.</strong> Aiming for 30-40%. Too much glass = High AC cost. Too little = High Light cost.</p>
+           </div>
         </div>
       </Section>
 
-      <Section title="Topic 2: Water Audit" moduleLabel="Module 07">
-        <p>A systematic study of water consumption and losses. <strong>Water Saving = Energy Saving</strong> because less water pumped means less electricity consumed.</p>
+      <Section title="Topic 5: Water Quality & Audit Metrics" moduleLabel="Module 07">
+        <p>A water audit is about "Mass Balance". Total In = Total Out + Storage + Losses.</p>
         
         <Grid>
-          <div className="bg-app-surface border border-app-border p-5 rounded-xl border-t-2 border-t-blue-500/50">
-            <h4 className="text-blue-400 font-mono text-[10px] uppercase font-bold mb-4 tracking-widest flex items-center gap-2">
-              <Droplets size={14} /> The Audit Logic
-            </h4>
-            <div className="space-y-4">
-              <div className="relative pl-6 border-l border-app-border">
-                <div className="absolute -left-[5px] top-0 w-2 h-2 rounded-full bg-blue-500" />
-                <h5 className="text-[11px] font-bold text-app-text">Detection</h5>
-                <p className="text-[10px] text-app-muted">Finding dripping taps, pipe leaks, and overflowing tanks.</p>
-              </div>
-              <div className="relative pl-6 border-l border-app-border">
-                <div className="absolute -left-[5px] top-0 w-2 h-2 rounded-full bg-blue-500" />
-                <h5 className="text-[11px] font-bold text-app-text">Measurement</h5>
-                <p className="text-[10px] text-app-muted">Using ultrasonic flow meters to track departmental usage.</p>
-              </div>
-            </div>
-          </div>
-          <div className="bg-app-surface border border-app-border p-5 rounded-xl border-t-2 border-t-blue-500/50">
-            <h4 className="text-blue-400 font-mono text-[10px] uppercase font-bold mb-4 tracking-widest flex items-center gap-2">
-              <ArrowUpRight size={14} /> Conservation Methods
-            </h4>
-            <List items={[
-              "Low-flow fixtures & aerators.",
-              "Rainwater Harvesting (RWH) systems.",
-              "Grey-water recycling for gardening.",
-              "Dual-flush toilet systems."
-            ]} />
-          </div>
+           <InfoBox title="Water Balance Equation" type="numerical" tag="Methodology">
+             <div className="text-center font-mono py-2 text-app-accent text-lg">
+               Q_supply = Q_used + Q_lost
+             </div>
+             <p className="text-[10px] text-app-muted text-center italic">Q_lost includes leaks, evapo-transpiration, and illegal taps.</p>
+           </InfoBox>
+           <div className="bg-app-surface border border-app-border p-5 rounded-xl">
+             <h4 className="text-xs font-bold text-app-text mb-3">Key Audit Tools</h4>
+             <List items={[
+               "Ultrasonic Flow Meters: Non-contact pipe measurement.",
+               "Dye Testing: To find hidden sewer-line leaks.",
+               "Pressure Gauges: To check for excess pressure leading to waste."
+             ]} />
+           </div>
         </Grid>
       </Section>
 
-      <Section title="Topic 3: Building Audit Procedure" moduleLabel="Module 07">
-        <p>A step-by-step technical framework for analyzing building energy performance.</p>
-        
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 my-8">
-          {[
-            { s: "Collect Data", d: "Utility bills & layouts", i: FileText },
-            { s: "Walk-Through", d: "Visual waste detection", i: Search },
-            { s: "Measurement", d: "V, I, Lux, & Temp tests", i: Settings },
-            { s: "Analysis", d: "Saving & ROI results", i: BarChart3 }
-          ].map((item, idx) => (
-            <div key={idx} className="bg-app-surface/50 border border-app-border p-4 rounded-xl text-center flex flex-col items-center">
-              <item.i className="text-app-accent mb-2 opacity-50" size={24} />
-              <h5 className="text-[10px] font-mono font-bold text-app-text uppercase">{item.s}</h5>
-              <p className="text-[10px] text-app-muted mt-1">{item.d}</p>
+      <Section title="Topic 6: Water Conservation & Recycling" moduleLabel="Module 07">
+         <Grid>
+            <div className="bg-app-bg/50 border border-app-border p-5 rounded-xl">
+               <h4 className="text-app-accent font-bold text-xs mb-4 uppercase">RWH (Rainwater Harvesting)</h4>
+               <p className="text-[10px] text-app-muted leading-relaxed">
+                 Collecting runoff from roofs. Filtration → Storage → Groundwater Recharge. Reduces dependency on municipal/borewell water by 30-40%.
+               </p>
             </div>
-          ))}
+            <div className="bg-app-bg/50 border border-app-border p-5 rounded-xl">
+               <h4 className="text-app-accent font-bold text-xs mb-4 uppercase">STP / ETP Integration</h4>
+               <p className="text-[10px] text-app-muted leading-relaxed">
+                 <strong>Sewage Treatment Plants</strong>. Recycling 'Grey Water' from baths/basins for toilet flushing and cooling tower make-up water. <strong>Saves 50% fresh water.</strong>
+               </p>
+            </div>
+         </Grid>
+      </Section>
+
+      <Section title="Topic 7: Green Building Ratings (LEED/GRIHA)" moduleLabel="Module 07">
+        <p>Certification provides market value and verifies efficiency claims.</p>
+        <div className="flex flex-col md:flex-row gap-6 my-6">
+           <div className="flex-1 p-6 bg-app-surface border border-app-border rounded-xl border-l-4 border-l-amber-500/50">
+              <h4 className="font-bold text-app-text mb-2">LEED (International)</h4>
+              <p className="text-xs text-app-muted leading-relaxed">Categorized into Certified, Silver, Gold, and Platinum. Focuses on Site, Water, Energy, and Materials.</p>
+           </div>
+           <div className="flex-1 p-6 bg-app-surface border border-app-border rounded-xl border-l-4 border-l-emerald-500/50">
+              <h4 className="font-bold text-app-text mb-2">GRIHA (Indian Context)</h4>
+              <p className="text-xs text-app-muted leading-relaxed">BEE's rating system optimized for Indian climate conditions and resource availability. 1 to 5 Star ratings.</p>
+           </div>
         </div>
-
-        <InfoBox title="Doctor Analogy" type="viva" tag="Memorize">
-          "Factory → Energy Auditor → Diagnosis of Loss → Prescription of Solution." 
-          The auditor identifies 'illnesses' like over-lighting or AC leaks and provides technical cures.
-        </InfoBox>
       </Section>
 
-      <Section title="Topic 4: General Energy Saving Tips" moduleLabel="Module 07">
-        <Grid>
-          <div className="bg-app-surface border border-app-border p-5 rounded-xl">
-            <h4 className="text-app-accent font-bold mb-3 text-sm flex items-center gap-2"><Zap size={16} /> Operational Efficiency</h4>
-            <ul className="text-xs space-y-3 text-app-text/70">
-              <li className="flex gap-2">
-                <span className="text-app-accent">01.</span>
-                <span>Maintain <strong>AC at 24–26°C</strong> for optimal comfort vs. cost balance.</span>
-              </li>
-              <li className="flex gap-2">
-                <span className="text-app-accent">02.</span>
-                <span>Switch OFF idle appliances (Phantom load management).</span>
-              </li>
-              <li className="flex gap-2">
-                <span className="text-app-accent">03.</span>
-                <span>Regular maintenance: Cleaning AC filters & lamp surfaces.</span>
-              </li>
-            </ul>
-          </div>
-          <div className="bg-app-surface border border-app-border p-5 rounded-xl">
-            <h4 className="text-app-accent font-bold mb-3 text-sm flex items-center gap-2"><Sun size={16} /> Renewable Integration</h4>
-            <ul className="text-xs space-y-3 text-app-text/70">
-              <li className="flex gap-2">
-                <span className="text-app-accent">01.</span>
-                <span>Install <strong>Rooftop Solar PV</strong> to reduce grid reliance.</span>
-              </li>
-              <li className="flex gap-2">
-                <span className="text-app-accent">02.</span>
-                <span>Use Solar Water Heaters for dorms/canteens.</span>
-              </li>
-              <li className="flex gap-2">
-                <span className="text-app-accent">03.</span>
-                <span>Adopt Light & Motion sensors for automated savings.</span>
-              </li>
-            </ul>
-          </div>
-        </Grid>
+      <Section title="Topic 8: HVAC Audit & Optimization" moduleLabel="Module 07">
+         <p>HVAC consumes 40-50% of building energy. Optimization is critical.</p>
+         <Grid>
+            <div className="p-4 bg-app-surface border border-app-border rounded-xl">
+               <h4 className="text-[10px] font-bold text-app-accent mb-2 uppercase">Chiller COP</h4>
+               <p className="text-[10px] text-app-muted italic">"Coefficient of Performance". Goal: Maximize heat removed per Watt of electricity input.</p>
+            </div>
+            <div className="p-4 bg-app-surface border border-app-border rounded-xl">
+               <h4 className="text-[10px] font-bold text-app-accent mb-2 uppercase">Variable Flow</h4>
+               <p className="text-[10px] text-app-muted italic">Use <strong>VFDs</strong> on secondary chilled water pumps and AHU fans to track thermal demand.</p>
+            </div>
+         </Grid>
+         <InfoBox title="Comfort Checklist" type="important">
+           1. Set AC at 24°C.<br />
+           2. Ensure weather-stripping on doors.<br />
+           3. Regular cleaning of cooling tower fins to improve heat rejection.
+         </InfoBox>
       </Section>
     </UnitLayout>
   );
