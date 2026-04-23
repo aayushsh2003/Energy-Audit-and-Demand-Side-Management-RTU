@@ -110,14 +110,12 @@ export default function UnitLayout({ title, children }: { title: string, childre
   const handleNext = () => {
     if (activeUnit && activeUnit < unitsCount) {
       setActiveUnit(activeUnit + 1);
-      window.scrollTo(0, 0);
     }
   };
 
   const handlePrev = () => {
     if (activeUnit && activeUnit > 1) {
       setActiveUnit(activeUnit - 1);
-      window.scrollTo(0, 0);
     }
   };
 
@@ -173,7 +171,7 @@ export default function UnitLayout({ title, children }: { title: string, childre
             </button>
           ) : activeUnit === unitsCount ? (
             <button 
-              onClick={() => { setActiveUnit(null); window.scrollTo(0, 0); }}
+              onClick={() => { setActiveUnit(null); }}
               className="group flex items-center gap-3 px-8 py-3 bg-app-surface border border-app-accent/30 text-app-accent text-sm font-bold rounded-xl hover:bg-app-accent/5 transition-all duration-300"
             >
               Main Terminal <Hash size={16} />

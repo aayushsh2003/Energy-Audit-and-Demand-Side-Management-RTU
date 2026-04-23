@@ -113,6 +113,7 @@ function AppContent() {
   const [activeUnit, setActiveUnit] = useState<number | null>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const { isDarkMode, toggleTheme } = useTheme();
+  const scrollContainerRef = React.useRef<HTMLDivElement>(null);
 
   const unitsCount = 9;
 
@@ -129,15 +130,19 @@ function AppContent() {
   };
 
   React.useEffect(() => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTo(0, 0);
+    }
+  }, [activeUnit]);
+
+  React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!activeUnit) return;
       
       if (e.key === 'ArrowRight' && activeUnit < unitsCount) {
         setActiveUnit(activeUnit + 1);
-        window.scrollTo(0, 0);
       } else if (e.key === 'ArrowLeft' && activeUnit > 1) {
         setActiveUnit(activeUnit - 1);
-        window.scrollTo(0, 0);
       } else if (e.key === 'Escape') {
         setActiveUnit(null);
       }
@@ -195,7 +200,10 @@ function AppContent() {
             isOpen={isSidebarOpen} 
           />
           
-          <div className="flex-1 overflow-y-auto bg-app-bg custom-scrollbar overflow-x-hidden relative">
+          <div 
+            ref={scrollContainerRef}
+            className="flex-1 overflow-y-auto bg-app-bg custom-scrollbar overflow-x-hidden relative"
+          >
             {/* Background Grid Pattern */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
             
